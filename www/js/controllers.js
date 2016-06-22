@@ -20,9 +20,8 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats, $cordovaGeolocation) {
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
-  
 })
 
 .controller('AccountCtrl', function($scope) {
@@ -31,17 +30,17 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('MapCtrl', function($scope, $state, $cordovaGeolocation) {
+.controller('MapCtrl', function($scope, $state, $stateParams, Chats, $cordovaGeolocation) {
   var options = {timeout: 10000, enableHighAccuracy: true};
-
+  var currentHole = Chats.get($stateParams.chatId)
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
 
-    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    // map.setOptions({draggable: false});
+    var latLng = new google.maps.LatLng(currentHole.pinLat, currentHole.pinLng);
+
     var mapOptions = {
       center: latLng,
       draggable: false,
-      zoom: 15,
+      zoom: 19,
       mapTypeId: google.maps.MapTypeId.SATELLITE
     };
 
