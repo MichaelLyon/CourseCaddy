@@ -88,7 +88,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
     }
   })
   .state('tab.map', {
-    url: '/map',
+    url: '/map/:chatId',
     views: {
       'tab-chats' :{
         templateUrl:'templates/tab-map.html',
