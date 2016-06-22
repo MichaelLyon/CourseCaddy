@@ -20,8 +20,9 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats, $cordovaGeolocation) {
   $scope.chat = Chats.get($stateParams.chatId);
+  
 })
 
 .controller('AccountCtrl', function($scope) {
