@@ -1,5 +1,6 @@
 angular.module('starter.controllers', [])
 
+
 .controller('DashCtrl', function($scope) {})
 
 .controller('LoginCtrl', function($scope) {})
@@ -35,11 +36,12 @@ angular.module('starter.controllers', [])
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
 
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
+    // map.setOptions({draggable: false});
     var mapOptions = {
       center: latLng,
+      draggable: false,
       zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.SATELLITE
     };
 
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
