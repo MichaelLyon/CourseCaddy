@@ -20,8 +20,16 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats, $cordovaGeolocation) {
   $scope.chat = Chats.get($stateParams.chatId);
+  var options = {timeout: 10000, enableHighAccuracy: true};
+  var currentHole = Chats.get($stateParams.chatId);
+  $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+    var latLng = new google.maps.LatLng(currentHole.centerLat,currentHole.centerLng);
+    var pinLatLng = new google.maps.LatLng(currentHole.pinLat,currentHole.pinLng);
+    var currentPOS = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+   $scope.yrdToHole = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng)*1.09361).toFixed(2);
+ })
 })
 
 .controller('AccountCtrl', function($scope) {
@@ -37,8 +45,7 @@ angular.module('starter.controllers', [])
     var latLng = new google.maps.LatLng(currentHole.centerLat,currentHole.centerLng);
     var pinLatLng = new google.maps.LatLng(currentHole.pinLat,currentHole.pinLng);
     var currentPOS = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-    var p3 = google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng);
-    console.log(p3);
+   $scope.yrdToHoleMap = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng)*1.09361).toFixed(2);
 
     //calculates distance between two points in km's
     // function calcDistance(p1, p2) {
@@ -53,7 +60,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    
+
     google.maps.event.addListenerOnce($scope.map, 'idle', function(){
     var marker = new google.maps.Marker({
         map: $scope.map,
