@@ -36,7 +36,14 @@ angular.module('starter.controllers', [])
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
     var latLng = new google.maps.LatLng(currentHole.centerLat,currentHole.centerLng);
     var pinLatLng = new google.maps.LatLng(currentHole.pinLat,currentHole.pinLng);
-    // var currentPOS = new
+    var currentPOS = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+    var p3 = google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng);
+    console.log(p3);
+
+    //calculates distance between two points in km's
+    // function calcDistance(p1, p2) {
+    //   return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
+    // }
     // position.coords.latitude, position.coords.longitude ABOVE previous for targeting current pos
     var mapOptions = {
       center: latLng,
@@ -46,7 +53,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
+    
     google.maps.event.addListenerOnce($scope.map, 'idle', function(){
     var marker = new google.maps.Marker({
         map: $scope.map,
@@ -54,7 +61,7 @@ angular.module('starter.controllers', [])
         position: pinLatLng
       });
     var infoWindow = new google.maps.InfoWindow({
-        content: "YRDS"
+        content: toString(1000)
       });
      google.maps.event.addListener(marker, 'click', function () {
          infoWindow.open($scope.map, marker);
