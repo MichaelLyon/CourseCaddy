@@ -34,18 +34,32 @@ angular.module('starter.controllers', [])
   var options = {timeout: 10000, enableHighAccuracy: true};
   var currentHole = Chats.get($stateParams.chatId)
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
-
-    var latLng = new google.maps.LatLng(currentHole.pinLat, currentHole.pinLng);
-
+    var latLng = new google.maps.LatLng(currentHole.centerLat,currentHole.centerLng);
+    var pinLatLng = new google.maps.LatLng(currentHole.pinLat,currentHole.pinLng);
+    // var currentPOS = new
+    // position.coords.latitude, position.coords.longitude ABOVE previous for targeting current pos
     var mapOptions = {
       center: latLng,
-      draggable: false,
-      zoom: 19,
+      // draggable: false,
+      zoom: 18,
       mapTypeId: google.maps.MapTypeId.SATELLITE
     };
 
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+    google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+    var marker = new google.maps.Marker({
+        map: $scope.map,
+        animation: google.maps.Animation.DROP,
+        position: pinLatLng
+      });
+    var infoWindow = new google.maps.InfoWindow({
+        content: "YRDS"
+      });
+     google.maps.event.addListener(marker, 'click', function () {
+         infoWindow.open($scope.map, marker);
+     });
+    });
   }, function(error){
     console.log("Could not get location");
   });
