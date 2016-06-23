@@ -62,26 +62,6 @@ angular.module('starter.controllers', [])
 
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-
-    // var drawingManager = new google.maps.drawing.DrawingManager({
-    //     drawingMode: google.maps.drawing.OverlayType.MARKER,
-    //     drawingControl: true,
-    //     drawingControlOptions: {
-    //       position: google.maps.ControlPosition.TOP_CENTER,
-    //       drawingModes: [
-    //         google.maps.drawing.OverlayType.MARKER
-    //       ]
-    //     },
-    //     markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-    //     // cursor: $scope.yrdToHoleMap
-    //     },
-    //   });
-    // drawingManager.setMap($scope.map);
-    // google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
-    //   if (event.type == google.maps.drawing.OverlayType.MARKER) {
-    //
-    //   }
-    // });
     google.maps.event.addListenerOnce($scope.map, 'idle', function() {
       var pinMarker = new google.maps.Marker({
         map: $scope.map,
