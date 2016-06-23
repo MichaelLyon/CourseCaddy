@@ -20,15 +20,14 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats, $cordovaGeolocation) {
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats, $cordovaGeolocation, $interval) {
   $scope.chat = Chats.get($stateParams.chatId);
   var options = {timeout: 10000, enableHighAccuracy: true};
   var currentHole = Chats.get($stateParams.chatId);
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
-    var latLng = new google.maps.LatLng(currentHole.centerLat,currentHole.centerLng);
     var pinLatLng = new google.maps.LatLng(currentHole.pinLat,currentHole.pinLng);
     var currentPOS = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-   $scope.yrdToHole = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng)*1.09361).toFixed(2);
+    $scope.yrdToHole = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng)*1.09361).toFixed(2);
  })
 })
 
@@ -47,11 +46,6 @@ angular.module('starter.controllers', [])
     var currentPOS = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
    $scope.yrdToHoleMap = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng)*1.09361).toFixed(2);
 
-    //calculates distance between two points in km's
-    // function calcDistance(p1, p2) {
-    //   return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
-    // }
-    // position.coords.latitude, position.coords.longitude ABOVE previous for targeting current pos
     var mapOptions = {
       center: latLng,
       // draggable: false,
