@@ -45,6 +45,7 @@ angular.module('starter.controllers', [])
     var pinLatLng = new google.maps.LatLng(currentHole.pinLat,currentHole.pinLng);
     var currentPOS = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
     $scope.yrdToHoleMap = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng)*1.09361).toFixed(2);
+    var yrdToHoleVariable = $scope.yrdToHoleMap;
 
     var mapOptions = {
       center: latLng,
@@ -82,8 +83,14 @@ angular.module('starter.controllers', [])
         position: pinLatLng,
         size: 1,
       });
+      var playerPOSMarker = new google.maps.Marker({
+        map: $scope.map,
+        animation: google.maps.Animation.DROP,
+        position: currentPOS,
+        size: 1,
+      });
       var infoWindow = new google.maps.InfoWindow({
-        content: toString(1000),
+        content: yrdToHoleVariable,
       });
     google.maps.event.addListener(pinMarker, 'click', function () {
       infoWindow.open($scope.map, pinMarker);
