@@ -55,31 +55,38 @@ angular.module('starter.controllers', [])
 
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    var drawingManager = new google.maps.drawing.DrawingManager({
-        drawingMode: google.maps.drawing.OverlayType.MARKER,
-        drawingControl: true,
-        drawingControlOptions: {
-          position: google.maps.ControlPosition.TOP_CENTER,
-          drawingModes: [
-            google.maps.drawing.OverlayType.MARKER
-          ]
-        },
-        markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
-      });
 
-    drawingManager.setMap($scope.map);
-
+    // var drawingManager = new google.maps.drawing.DrawingManager({
+    //     drawingMode: google.maps.drawing.OverlayType.MARKER,
+    //     drawingControl: true,
+    //     drawingControlOptions: {
+    //       position: google.maps.ControlPosition.TOP_CENTER,
+    //       drawingModes: [
+    //         google.maps.drawing.OverlayType.MARKER
+    //       ]
+    //     },
+    //     markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+    //     // cursor: $scope.yrdToHoleMap
+    //     },
+    //   });
+    // drawingManager.setMap($scope.map);
+    // google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
+    //   if (event.type == google.maps.drawing.OverlayType.MARKER) {
+    //
+    //   }
+    // });
     google.maps.event.addListenerOnce($scope.map, 'idle', function(){
-      var marker = new google.maps.Marker({
+      var pinMarker = new google.maps.Marker({
         map: $scope.map,
         animation: google.maps.Animation.DROP,
-        position: pinLatLng
+        position: pinLatLng,
+        size: 1,
       });
       var infoWindow = new google.maps.InfoWindow({
-        content: toString(1000)
+        content: toString(1000),
       });
-    google.maps.event.addListener(marker, 'click', function () {
-      infoWindow.open($scope.map, marker);
+    google.maps.event.addListener(pinMarker, 'click', function () {
+      infoWindow.open($scope.map, pinMarker);
     });
   });
 }, function(error){
