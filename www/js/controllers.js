@@ -44,7 +44,7 @@ angular.module('starter.controllers', [])
     var latLng = new google.maps.LatLng(currentHole.centerLat,currentHole.centerLng);
     var pinLatLng = new google.maps.LatLng(currentHole.pinLat,currentHole.pinLng);
     var currentPOS = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-   $scope.yrdToHoleMap = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng)*1.09361).toFixed(2);
+    $scope.yrdToHoleMap = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng)*1.09361).toFixed(2);
 
     var mapOptions = {
       center: latLng,
@@ -55,20 +55,34 @@ angular.module('starter.controllers', [])
 
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+    var drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: google.maps.drawing.OverlayType.MARKER,
+        drawingControl: true,
+        drawingControlOptions: {
+          position: google.maps.ControlPosition.TOP_CENTER,
+          drawingModes: [
+            google.maps.drawing.OverlayType.MARKER
+          ]
+        },
+        markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
+      });
+
+    drawingManager.setMap($scope.map);
+
     google.maps.event.addListenerOnce($scope.map, 'idle', function(){
-    var marker = new google.maps.Marker({
+      var marker = new google.maps.Marker({
         map: $scope.map,
         animation: google.maps.Animation.DROP,
         position: pinLatLng
       });
-    var infoWindow = new google.maps.InfoWindow({
+      var infoWindow = new google.maps.InfoWindow({
         content: toString(1000)
       });
-     google.maps.event.addListener(marker, 'click', function () {
-         infoWindow.open($scope.map, marker);
-     });
+    google.maps.event.addListener(marker, 'click', function () {
+      infoWindow.open($scope.map, marker);
     });
-  }, function(error){
-    console.log("Could not get location");
   });
+}, function(error){
+  console.log("Could not get location");
+});
 });
