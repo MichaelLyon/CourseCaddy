@@ -22,13 +22,16 @@ angular.module('starter.controllers', [])
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats, $cordovaGeolocation, $interval) {
   $scope.chat = Chats.get($stateParams.chatId);
-  var options = {timeout: 10000, enableHighAccuracy: true};
+  var options = {
+    timeout: 10000,
+    enableHighAccuracy: true
+  };
   var currentHole = Chats.get($stateParams.chatId);
-  $cordovaGeolocation.getCurrentPosition(options).then(function(position){
-    var pinLatLng = new google.maps.LatLng(currentHole.pinLat,currentHole.pinLng);
-    var currentPOS = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-    $scope.yrdToHole = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng)*1.09361).toFixed(2);
- })
+  $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
+    var pinLatLng = new google.maps.LatLng(currentHole.pinLat, currentHole.pinLng);
+    var currentPOS = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    $scope.yrdToHole = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng) * 1.09361).toFixed(2);
+  })
 })
 
 .controller('AccountCtrl', function($scope) {
@@ -38,18 +41,21 @@ angular.module('starter.controllers', [])
 })
 
 .controller('MapCtrl', function($scope, $state, $stateParams, Chats, $cordovaGeolocation) {
-  var options = {timeout: 10000, enableHighAccuracy: true};
+  var options = {
+    timeout: 10000,
+    enableHighAccuracy: true
+  };
   var currentHole = Chats.get($stateParams.chatId)
-  $cordovaGeolocation.getCurrentPosition(options).then(function(position){
-    var latLng = new google.maps.LatLng(currentHole.centerLat,currentHole.centerLng);
-    var pinLatLng = new google.maps.LatLng(currentHole.pinLat,currentHole.pinLng);
-    var currentPOS = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-    $scope.yrdToHoleMap = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng)*1.09361).toFixed(2);
+  $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
+    var latLng = new google.maps.LatLng(currentHole.centerLat, currentHole.centerLng);
+    var pinLatLng = new google.maps.LatLng(currentHole.pinLat, currentHole.pinLng);
+    var currentPOS = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    $scope.yrdToHoleMap = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng) * 1.09361).toFixed(2);
     var yrdToHoleVariable = $scope.yrdToHoleMap;
 
     var mapOptions = {
       center: latLng,
-      // draggable: false,
+      // disableDefaultUI:true, TODO: Unhighlight this
       zoom: 18,
       mapTypeId: google.maps.MapTypeId.SATELLITE
     };
@@ -76,27 +82,38 @@ angular.module('starter.controllers', [])
     //
     //   }
     // });
-    google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+    google.maps.event.addListenerOnce($scope.map, 'idle', function() {
       var pinMarker = new google.maps.Marker({
         map: $scope.map,
         animation: google.maps.Animation.DROP,
         position: pinLatLng,
-        size: 1,
       });
       var playerPOSMarker = new google.maps.Marker({
         map: $scope.map,
         animation: google.maps.Animation.DROP,
         position: currentPOS,
-        size: 1,
       });
       var infoWindow = new google.maps.InfoWindow({
-        content: yrdToHoleVariable,
+        content: yrdToHoleVariable + ' yards',
+        enabled: true
       });
-    google.maps.event.addListener(pinMarker, 'click', function () {
-      infoWindow.open($scope.map, pinMarker);
+      var distanceLine = new google.maps.Polyline({
+        path: [
+          new google.maps.LatLng(currentHole.pinLat, currentHole.pinLng),
+          new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+        ],
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      })
+      distanceLine.setMap($scope.map);
+
+      google.maps.event.addListener(pinMarker, 'click', function() {
+        infoWindow.open($scope.map, pinMarker);
+      });
     });
+  }, function(error) {
+    console.log("Could not get location");
   });
-}, function(error){
-  console.log("Could not get location");
-});
 });
