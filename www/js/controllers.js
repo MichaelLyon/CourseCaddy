@@ -94,6 +94,10 @@ angular.module('starter.controllers', [])
   };
 })
 
+.controller('SaveClubCtrl',function($scope){
+  
+})
+
 .controller('MapCtrl', function($scope, $state, $stateParams, Chats, $cordovaGeolocation) {
 
   function localStorageSaver(data){

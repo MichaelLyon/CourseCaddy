@@ -76,6 +76,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
         }
       }
     })
+    
+    .state('tab.saveClub', {
+      url: '/saveClub/:chatId',
+      views: {
+        'tab-chats' :{
+          templateUrl:'templates/tab-saveClub.html',
+          controller: 'SaveClubCtrl'
+        }
+      }
+    })
 
   .state('tab.account', {
     url: '/account',
@@ -86,6 +96,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','n
       }
     }
   })
+
   .state('tab.map', {
     url: '/map/:chatId',
     views: {
