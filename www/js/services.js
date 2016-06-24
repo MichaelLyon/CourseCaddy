@@ -10,70 +10,70 @@ angular.module('starter.services', [])
     fDisShrt: '150'
   },{
     id: 1,
-    name: '3Wood',
+    name: '3-Wood',
     mDisLong: '235',
     mDisShrt: '180',
     fDisLong: '180',
     fDisShrt: '125'
   },{
     id: 2,
-    name: '5Wood',
+    name: '5-Wood',
     mDisLong: '210',
     mDisShrt: '170',
     fDisLong: '170',
     fDisShrt: '105'
   },{
     id: 3,
-    name: '2Iron',
+    name: '2-Iron',
     mDisLong: '210',
     mDisShrt: '170',
     fDisLong: '170',
     fDisShrt: '105'
   },{
     id: 4,
-    name: '3Iron',
+    name: '3-Iron',
     mDisLong: '200',
     mDisShrt: '160',
     fDisLong: '160',
     fDisShrt: '100'
   },{
     id: 5,
-    name: '4Iron',
+    name: '4-Iron',
     mDisLong: '185',
     mDisShrt: '150',
     fDisLong: '150',
     fDisShrt: '90'
   },{
     id: 6,
-    name: '5Iron',
+    name: '5-Iron',
     mDisLong: '170',
     mDisShrt: '140',
     fDisLong: '140',
     fDisShrt: '80'
   },{
     id: 7,
-    name: '6Iron',
+    name: '6-Iron',
     mDisLong: '160',
     mDisShrt: '130',
     fDisLong: '130',
     fDisShrt: '70'
   },{
     id: 8,
-    name: '7Iron',
+    name: '7-Iron',
     mDisLong: '150',
     mDisShrt: '120',
     fDisLong: '120',
     fDisShrt: '65'
   },{
     id: 9,
-    name: '8Iron',
+    name: '8-Iron',
     mDisLong: '140',
     mDisShrt: '110',
     fDisLong: '110',
     fDisShrt: '60'
   },{
     id: 10,
-    name: '9Iron',
+    name: '9-Iron',
     mDisLong: '130',
     mDisShrt: '95',
     fDisLong: '95',

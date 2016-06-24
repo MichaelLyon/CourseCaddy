@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats, Clubs, $cordovaGeolocation, $interval) {
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats, Clubs, $cordovaGeolocation) {
   // $scope.club = Clubs.get($stateParams.clubId);
   $scope.chat = Chats.get($stateParams.chatId);
 
@@ -107,7 +107,6 @@ angular.module('starter.controllers', [])
   };
 
   $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
-    var currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     var beforeShotPosition = 0;
     var afterShotPosition = 0;
 
@@ -117,10 +116,12 @@ angular.module('starter.controllers', [])
       console.log(localStorage1);
     })
     savePOSBeforeShot.addEventListener('click', function() {
+      var currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       beforeShotPosition = currentPosition;
       console.log(beforeShotPosition);
     })
     savePOSAfterShot.addEventListener('click',function(){
+      var currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       afterShotPosition  = currentPosition;
       console.log(afterShotPosition);
     })
