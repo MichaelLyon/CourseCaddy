@@ -92,8 +92,21 @@ angular.module('starter.services', [])
     mDisShrt: '60',
     fDisLong: '60',
     fDisShrt: '40'
+  }];
+
+  return {
+    all: function() {
+      return clubs;
+    },
+    get: function(clubId) {
+      for (var i = 0; i < chats.length; i++) {
+        if (clubs[i].id === parseInt(clubId)) {
+          return clubs[i];
+        }
+      }
+      return null;
+    },
   }
-]
 })
 
 .factory('Chats', function() {
