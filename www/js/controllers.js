@@ -35,52 +35,52 @@ angular.module('starter.controllers', [])
     var currentPOS = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     $scope.yrdToHole = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng) * 1.09361).toFixed(2);
 
-    if($scope.yrdToHole > 220){
+    if ($scope.yrdToHole > 220) {
       var clubGet = Clubs.get('0');
       var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
-    }else if($scope.yrdToHole <= 220 && $scope.yrdToHole > 180){
+    } else if ($scope.yrdToHole <= 220 && $scope.yrdToHole > 180) {
       var clubGet = Clubs.get('1');
       var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
-    }else if($scope.yrdToHole <= 210 && $scope.yrdToHole > 170){
+    } else if ($scope.yrdToHole <= 210 && $scope.yrdToHole > 170) {
       var clubGet = Clubs.get('2');
       var club2Get = Clubs.get('3');
-      var clubSet = clubGet.name +' or '+ club2Get.name;
+      var clubSet = clubGet.name + ' or ' + club2Get.name;
       $scope.recommendClub = clubSet;
-    }else if($scope.yrdToHole <= 200 && $scope.yrdToHole > 160){
+    } else if ($scope.yrdToHole <= 200 && $scope.yrdToHole > 160) {
       var clubGet = Clubs.get('4');
       var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
-    }else if($scope.yrdToHole <= 185 && $scope.yrdToHole > 150){
+    } else if ($scope.yrdToHole <= 185 && $scope.yrdToHole > 150) {
       var clubGet = Clubs.get('5');
       var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
-    }else if($scope.yrdToHole <= 170 && $scope.yrdToHole > 140){
+    } else if ($scope.yrdToHole <= 170 && $scope.yrdToHole > 140) {
       var clubGet = Clubs.get('6');
       var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
-    }else if($scope.yrdToHole <= 160 && $scope.yrdToHole > 130){
+    } else if ($scope.yrdToHole <= 160 && $scope.yrdToHole > 130) {
       var clubGet = Clubs.get('7');
       var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
-    }else if($scope.yrdToHole <= 150 && $scope.yrdToHole > 120){
+    } else if ($scope.yrdToHole <= 150 && $scope.yrdToHole > 120) {
       var clubGet = Clubs.get('8');
       var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
-    }else if($scope.yrdToHole <= 140 && $scope.yrdToHole > 110){
+    } else if ($scope.yrdToHole <= 140 && $scope.yrdToHole > 110) {
       var clubGet = Clubs.get('9');
       var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
-    }else if($scope.yrdToHole <= 130 && $scope.yrdToHole > 95){
+    } else if ($scope.yrdToHole <= 130 && $scope.yrdToHole > 95) {
       var clubGet = Clubs.get('10');
       var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
-    }else if($scope.yrdToHole <= 120 && $scope.yrdToHole > 80){
+    } else if ($scope.yrdToHole <= 120 && $scope.yrdToHole > 80) {
       var clubGet = Clubs.get('11');
       var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
-    }else if($scope.yrdToHole <= 100 && $scope.yrdToHole > 60){
+    } else if ($scope.yrdToHole <= 100 && $scope.yrdToHole > 60) {
       var clubGet = Clubs.get('12');
       var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
@@ -94,31 +94,57 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('SaveClubCtrl',function($scope){
-  
+.controller('SaveClubCtrl', function($scope, $cordovaGeolocation) {
+  var localStorage1 = window.localStorage;
+  var saveClubYardage = document.getElementById("saveClubYardage");
+  var savePOSBeforeShot = document.getElementById("savePOSBeforeShot");
+  var savePOSAfterShot = document.getElementById("savePOSAfterShot");
+  var selectBox = document.getElementsByClassName('clubSelectBox')[0];
+
+  var options = {
+    timeout: 10000,
+    enableHighAccuracy: true
+  };
+
+  $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
+    var currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    var beforeShotPosition = 0;
+    var afterShotPosition = 0;
+
+    saveClubYardage.addEventListener('click', function() {
+      localStorage1.club = selectBox.value;
+      localStorage1.distance = computeDistanceOfCurrentPOS(beforeShotPosition,afterShotPosition);
+      console.log(localStorage1);
+    })
+    savePOSBeforeShot.addEventListener('click', function() {
+      beforeShotPosition = currentPosition;
+      console.log(beforeShotPosition);
+    })
+    savePOSAfterShot.addEventListener('click',function(){
+      afterShotPosition  = currentPosition;
+      console.log(afterShotPosition);
+    })
+    function computeDistanceOfCurrentPOS(Position1, Position2){
+      var computeSaveYards = (google.maps.geometry.spherical.computeDistanceBetween(Position1, Position2) * 1.09361).toFixed(2);
+      return computeSaveYards;
+    }
+  })
 })
 
 .controller('MapCtrl', function($scope, $state, $stateParams, Chats, $cordovaGeolocation) {
-
-  function localStorageSaver(data){
-    var localStorage1 = window.localStorage;
-    return localStorage1.setItem = data;
-  }
-  console.log(localStorageSaver({id:1,club:'9Iron',disStartCord:100,disEndCord:200,totalDis:100}));
-
-  function datEventListener(marker,infoWindow1){
-    google.maps.event.addListener(marker,'click',function(){
+  function datEventListener(marker, infoWindow1) {
+    google.maps.event.addListener(marker, 'click', function() {
       infoWindow1.open($scope.map, marker);
     })
   }
 
-  function demMarkersDistanceBetween(obsticleLat,obsticleLng,currentPosition){
-    var newLatLng = new google.maps.LatLng(obsticleLat,obsticleLng);
+  function demMarkersDistanceBetween(obsticleLat, obsticleLng, currentPosition) {
+    var newLatLng = new google.maps.LatLng(obsticleLat, obsticleLng);
     var distanceBetween = (google.maps.geometry.spherical.computeDistanceBetween(currentPosition, newLatLng) * 1.09361).toFixed(2);
     return distanceBetween;
   }
 
-  function infoWindowCreator(yardsInBetween){
+  function infoWindowCreator(yardsInBetween) {
     var returnedInfoWindow = new google.maps.InfoWindow({
       content: yardsInBetween + ' yards',
       enabled: true
@@ -126,17 +152,19 @@ angular.module('starter.controllers', [])
     return returnedInfoWindow
   }
 
-  function disMarkerMaker(obsPOS){{
-    var newMarker = new google.maps.Marker({
-      map: $scope.map,
-      animation: google.maps.Animation.DROP,
-      position: obsPOS,
-    });
-    return newMarker
-  }}
+  function disMarkerMaker(obsPOS) {
+    {
+      var newMarker = new google.maps.Marker({
+        map: $scope.map,
+        animation: google.maps.Animation.DROP,
+        position: obsPOS,
+      });
+      return newMarker
+    }
+  }
 
-  function tisButaPOS(lat,lng){
-    var returnedLatLng = new google.maps.LatLng(lat,lng);
+  function tisButaPOS(lat, lng) {
+    var returnedLatLng = new google.maps.LatLng(lat, lng);
     return returnedLatLng;
   }
 
@@ -168,7 +196,7 @@ angular.module('starter.controllers', [])
         map: $scope.map,
         animation: google.maps.Animation.DROP,
         position: pinLatLng,
-        icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+        icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
       });
       var playerPOSMarker = new google.maps.Marker({
         map: $scope.map,
@@ -191,33 +219,33 @@ angular.module('starter.controllers', [])
       })
 
       distanceLine.setMap($scope.map);
-      datEventListener(pinMarker,infoWindow);
+      datEventListener(pinMarker, infoWindow);
 
       //Update Hole Information
-      if(currentHole.id ===0){
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.sTrapShrtLat,currentHole.sTrapShrtLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.sTrapShrtLat,currentHole.sTrapShrtLng,currentPOS)));
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.sTrapLongLat,currentHole.sTrapLongLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.sTrapLongLat,currentHole.sTrapLongLng,currentPOS)));
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLat,currentHole.fWayLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLat,currentHole.fWayLng,currentPOS)));
+      if (currentHole.id === 0) {
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.sTrapShrtLat, currentHole.sTrapShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.sTrapShrtLat, currentHole.sTrapShrtLng, currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.sTrapLongLat, currentHole.sTrapLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.sTrapLongLat, currentHole.sTrapLongLng, currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLat, currentHole.fWayLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLat, currentHole.fWayLng, currentPOS)));
       }
-      if(currentHole.id ===1){
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat,currentHole.fWayShrtLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat,currentHole.fWayShrtLng,currentPOS)));
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat,currentHole.fWayCenterLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat,currentHole.fWayCenterLng,currentPOS)));
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWAyEndLat,currentHole.fWayEndLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWAyEndLat,currentHole.fWayEndLng,currentPOS)));
+      if (currentHole.id === 1) {
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat, currentHole.fWayCenterLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat, currentHole.fWayCenterLng, currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWAyEndLat, currentHole.fWayEndLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWAyEndLat, currentHole.fWayEndLng, currentPOS)));
       }
-      if(currentHole.id ===2){
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.wHazardLat,currentHole.wHazardLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.wHazardLat,currentHole.wHazardLng,currentPOS)));
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat,currentHole.fWayCenterLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat,currentHole.fWayCenterLng,currentPOS)));
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.greenEndLat,currentHole.greenEndLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.greenEndLat,currentHole.greenEndLng,currentPOS)));
+      if (currentHole.id === 2) {
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.wHazardLat, currentHole.wHazardLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.wHazardLat, currentHole.wHazardLng, currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat, currentHole.fWayCenterLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat, currentHole.fWayCenterLng, currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.greenEndLat, currentHole.greenEndLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.greenEndLat, currentHole.greenEndLng, currentPOS)));
       }
-      if(currentHole.id===3){
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat,currentHole.fWayShrtLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat,currentHole.fWayShrtLng,currentPOS)));
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat,currentHole.fWayCenterLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat,currentHole.fWayCenterLng,currentPOS)));
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.greenEndLat,currentHole.greenEndLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.greenEndLat,currentHole.greenEndLng,currentPOS)));
+      if (currentHole.id === 3) {
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat, currentHole.fWayCenterLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat, currentHole.fWayCenterLng, currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.greenEndLat, currentHole.greenEndLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.greenEndLat, currentHole.greenEndLng, currentPOS)));
       }
-      if(currentHole.id===4){
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat,currentHole.fWayShrtLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat,currentHole.fWayShrtLng,currentPOS)));
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat,currentHole.fWayCenterLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat,currentHole.fWayCenterLng,currentPOS)));
-        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat,currentHole.fWayLongLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat,currentHole.fWayLongLng,currentPOS)));
+      if (currentHole.id === 4) {
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat, currentHole.fWayCenterLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat, currentHole.fWayCenterLng, currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat, currentHole.fWayLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat, currentHole.fWayLongLng, currentPOS)));
       }
     });
   }, function(error) {
