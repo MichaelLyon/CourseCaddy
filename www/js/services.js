@@ -11,7 +11,13 @@ angular.module('starter.services', [])
     pinLat:'39.542139',
     pinLng:'-104.896057',
     centerLat:'39.541530',
-    centerLng:'-104.896829'
+    centerLng:'-104.896829',
+    sTrapShrtLat:'39.541361',
+    sTrapShrtLng:'-104.897221',
+    sTrapLongLat:'39.541790',
+    sTrapLongLng:'-104.896232',
+    fWayLat:'39.541510',
+    fWayLng:'-104.896638'
   }, {
     id: 1,
     name: 'Hole 2',

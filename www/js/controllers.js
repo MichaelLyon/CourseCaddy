@@ -1,6 +1,5 @@
 angular.module('starter.controllers', [])
 
-
 .controller('DashCtrl', function($scope) {})
 
 .controller('LoginCtrl', function($scope) {})
@@ -41,6 +40,12 @@ angular.module('starter.controllers', [])
 })
 
 .controller('MapCtrl', function($scope, $state, $stateParams, Chats, $cordovaGeolocation) {
+
+  function datEventListener(marker,infoWindow){
+    google.maps.event.addListener(marker,'click',function(){
+      infoWindow.open($scope.map, marker);
+    })
+  }
   var options = {
     timeout: 10000,
     enableHighAccuracy: true
@@ -87,11 +92,24 @@ angular.module('starter.controllers', [])
         strokeOpacity: 1.0,
         strokeWeight: 2
       })
+
       distanceLine.setMap($scope.map);
 
-      google.maps.event.addListener(pinMarker, 'click', function() {
-        infoWindow.open($scope.map, pinMarker);
-      });
+      if(currentHole.id ===0){
+        var sTrapShrtMarkPOS = new google.maps.LatLng(currentHole.sTrapShrtLat, currentHole.sTrapShrtLng);
+        var sTrapShrt = new google.maps.Marker({
+          map: $scope.map,
+          animation: google.maps.Animation.DROP,
+          position: sTrapShrtMarkPOS,
+        });
+        var sTrapShrtInfo = new google.maps.InfoWindow({
+          content:'',
+          enabled: true
+        });
+      }
+
+
+      datEventListener(pinMarker,infoWindow);
     });
   }, function(error) {
     console.log("Could not get location");
