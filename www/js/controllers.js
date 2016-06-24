@@ -29,10 +29,18 @@ angular.module('starter.controllers', [])
     enableHighAccuracy: true
   };
   var currentHole = Chats.get($stateParams.chatId);
+  var clubGet = Clubs.get($stateParams.chatId);
+  var clubSet = clubGet.name;
+
   $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
     var pinLatLng = new google.maps.LatLng(currentHole.pinLat, currentHole.pinLng);
     var currentPOS = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     $scope.yrdToHole = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng) * 1.09361).toFixed(2);
+
+    console.log($scope.yrdToHole);
+    if($scope.yrdToHole > 260){
+      $scope.recommendClub = clubSet;
+    }
   })
 })
 
