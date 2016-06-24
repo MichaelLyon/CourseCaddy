@@ -21,7 +21,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats, Clubs, $cordovaGeolocation, $interval) {
-  $scope.club = Clubs.get($stateParams.clubId);
+  // $scope.club = Clubs.get($stateParams.clubId);
   $scope.chat = Chats.get($stateParams.chatId);
 
   var options = {
@@ -29,16 +29,60 @@ angular.module('starter.controllers', [])
     enableHighAccuracy: true
   };
   var currentHole = Chats.get($stateParams.chatId);
-  var clubGet = Clubs.get($stateParams.chatId);
-  var clubSet = clubGet.name;
 
   $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
     var pinLatLng = new google.maps.LatLng(currentHole.pinLat, currentHole.pinLng);
     var currentPOS = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     $scope.yrdToHole = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng) * 1.09361).toFixed(2);
 
-    console.log($scope.yrdToHole);
-    if($scope.yrdToHole > 260){
+    if($scope.yrdToHole > 220){
+      var clubGet = Clubs.get('0');
+      var clubSet = clubGet.name;
+      $scope.recommendClub = clubSet;
+    }else if($scope.yrdToHole <= 220 && $scope.yrdToHole > 180){
+      var clubGet = Clubs.get('1');
+      var clubSet = clubGet.name;
+      $scope.recommendClub = clubSet;
+    }else if($scope.yrdToHole <= 210 && $scope.yrdToHole > 170){
+      var clubGet = Clubs.get('2');
+      var club2Get = Clubs.get('3');
+      var clubSet = clubGet.name +' or '+ club2Get.name;
+      $scope.recommendClub = clubSet;
+    }else if($scope.yrdToHole <= 200 && $scope.yrdToHole > 160){
+      var clubGet = Clubs.get('4');
+      var clubSet = clubGet.name;
+      $scope.recommendClub = clubSet;
+    }else if($scope.yrdToHole <= 185 && $scope.yrdToHole > 150){
+      var clubGet = Clubs.get('5');
+      var clubSet = clubGet.name;
+      $scope.recommendClub = clubSet;
+    }else if($scope.yrdToHole <= 170 && $scope.yrdToHole > 140){
+      var clubGet = Clubs.get('6');
+      var clubSet = clubGet.name;
+      $scope.recommendClub = clubSet;
+    }else if($scope.yrdToHole <= 160 && $scope.yrdToHole > 130){
+      var clubGet = Clubs.get('7');
+      var clubSet = clubGet.name;
+      $scope.recommendClub = clubSet;
+    }else if($scope.yrdToHole <= 150 && $scope.yrdToHole > 120){
+      var clubGet = Clubs.get('8');
+      var clubSet = clubGet.name;
+      $scope.recommendClub = clubSet;
+    }else if($scope.yrdToHole <= 140 && $scope.yrdToHole > 110){
+      var clubGet = Clubs.get('9');
+      var clubSet = clubGet.name;
+      $scope.recommendClub = clubSet;
+    }else if($scope.yrdToHole <= 130 && $scope.yrdToHole > 95){
+      var clubGet = Clubs.get('10');
+      var clubSet = clubGet.name;
+      $scope.recommendClub = clubSet;
+    }else if($scope.yrdToHole <= 120 && $scope.yrdToHole > 80){
+      var clubGet = Clubs.get('11');
+      var clubSet = clubGet.name;
+      $scope.recommendClub = clubSet;
+    }else if($scope.yrdToHole <= 100 && $scope.yrdToHole > 60){
+      var clubGet = Clubs.get('12');
+      var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
     }
   })
