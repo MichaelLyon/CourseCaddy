@@ -41,9 +41,9 @@ angular.module('starter.controllers', [])
 
 .controller('MapCtrl', function($scope, $state, $stateParams, Chats, $cordovaGeolocation) {
 
-  function datEventListener(marker,infoWindow){
+  function datEventListener(marker,infoWindow1){
     google.maps.event.addListener(marker,'click',function(){
-      infoWindow.open($scope.map, marker);
+      infoWindow1.open($scope.map, marker);
     })
   }
 
@@ -59,6 +59,7 @@ angular.module('starter.controllers', [])
       content: yardsInBetween + ' yards',
       enabled: true
     });
+    return returnedInfoWindow
   }
 
   function disMarkerMaker(obsPOS){{
