@@ -46,25 +46,32 @@ angular.module('starter.controllers', [])
       infoWindow.open($scope.map, marker);
     })
   }
-  
+
   function demMarkersDistanceBetween(obsticleLat,obsticleLng,currentPosition){
     var newLatLng = new google.maps.LatLng(obsticleLat,obsticleLng);
     var distanceBetween = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng) * 1.09361).toFixed(2);
     console.log(distanceBetween);
     return distanceBetween;
   }
-  function disMarkerMaker(){{
 
+  function disMarkerMaker(obsPOS){{
+    var sTrapShrt = new google.maps.Marker({
+      map: $scope.map,
+      animation: google.maps.Animation.DROP,
+      position: obsPOS,
+    });
   }}
 
   function tisButaPOS(lat,lng){
     var returnedLatLng = new google.maps.LatLng(lat,lng);
     return returnedLatLng;
   }
+
   var options = {
     timeout: 10000,
     enableHighAccuracy: true
   };
+
   var currentHole = Chats.get($stateParams.chatId)
   $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
     var latLng = new google.maps.LatLng(currentHole.centerLat, currentHole.centerLng);
@@ -113,17 +120,18 @@ angular.module('starter.controllers', [])
 
 
       if(currentHole.id ===0){
+        
         // demMarkersDistanceBetween(currentHole.sTrapShrtLat,currentHole.sTrapShrtLng,currentPOS);
-        var sTrapShrtMarkPOS = new google.maps.LatLng(currentHole.sTrapShrtLat, currentHole.sTrapShrtLng);
-        var sTrapShrt = new google.maps.Marker({
-          map: $scope.map,
-          animation: google.maps.Animation.DROP,
-          position: sTrapShrtMarkPOS,
-        });
-        var sTrapShrtInfo = new google.maps.InfoWindow({
-          content:'',
-          enabled: true
-        });
+        // var sTrapShrtMarkPOS = new google.maps.LatLng(currentHole.sTrapShrtLat, currentHole.sTrapShrtLng);
+        // var sTrapShrt = new google.maps.Marker({
+        //   map: $scope.map,
+        //   animation: google.maps.Animation.DROP,
+        //   position: sTrapShrtMarkPOS,
+        // });
+        // var sTrapShrtInfo = new google.maps.InfoWindow({
+        //   content:'',
+        //   enabled: true
+        // });
       }
 
       datEventListener(pinMarker,infoWindow);
