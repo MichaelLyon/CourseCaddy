@@ -50,7 +50,6 @@ angular.module('starter.controllers', [])
   function demMarkersDistanceBetween(obsticleLat,obsticleLng,currentPosition){
     var newLatLng = new google.maps.LatLng(obsticleLat,obsticleLng);
     var distanceBetween = (google.maps.geometry.spherical.computeDistanceBetween(currentPosition, newLatLng) * 1.09361).toFixed(2);
-    console.log(distanceBetween);
     return distanceBetween;
   }
 
@@ -104,6 +103,7 @@ angular.module('starter.controllers', [])
         map: $scope.map,
         animation: google.maps.Animation.DROP,
         position: pinLatLng,
+        icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
       });
       var playerPOSMarker = new google.maps.Marker({
         map: $scope.map,
@@ -128,25 +128,32 @@ angular.module('starter.controllers', [])
       distanceLine.setMap($scope.map);
       datEventListener(pinMarker,infoWindow);
 
-
+      //Update Hole Information
       if(currentHole.id ===0){
-
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.sTrapShrtLat,currentHole.sTrapShrtLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.sTrapShrtLat,currentHole.sTrapShrtLng,currentPOS)));
-        // demMarkersDistanceBetween(currentHole.sTrapShrtLat,currentHole.sTrapShrtLng,currentPOS);
-        // var sTrapShrtMarkPOS = new google.maps.LatLng(currentHole.sTrapShrtLat, currentHole.sTrapShrtLng);
-        // var sTrapShrt = new google.maps.Marker({
-        //   map: $scope.map,
-        //   animation: google.maps.Animation.DROP,
-        //   position: sTrapShrtMarkPOS,
-        // });
-        // var sTrapShrtInfo = new google.maps.InfoWindow({
-        //   content:'',
-        //   enabled: true
-        // });
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.sTrapLongLat,currentHole.sTrapLongLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.sTrapLongLat,currentHole.sTrapLongLng,currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLat,currentHole.fWayLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLat,currentHole.fWayLng,currentPOS)));
       }
-
-
-
+      if(currentHole.id ===1){
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat,currentHole.fWayShrtLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat,currentHole.fWayShrtLng,currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat,currentHole.fWayCenterLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat,currentHole.fWayCenterLng,currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWAyEndLat,currentHole.fWayEndLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWAyEndLat,currentHole.fWayEndLng,currentPOS)));
+      }
+      if(currentHole.id ===2){
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.wHazardLat,currentHole.wHazardLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.wHazardLat,currentHole.wHazardLng,currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat,currentHole.fWayCenterLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat,currentHole.fWayCenterLng,currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.greenEndLat,currentHole.greenEndLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.greenEndLat,currentHole.greenEndLng,currentPOS)));
+      }
+      if(currentHole.id===3){
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat,currentHole.fWayShrtLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat,currentHole.fWayShrtLng,currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat,currentHole.fWayCenterLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat,currentHole.fWayCenterLng,currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.greenEndLat,currentHole.greenEndLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.greenEndLat,currentHole.greenEndLng,currentPOS)));
+      }
+      if(currentHole.id===4){
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat,currentHole.fWayShrtLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat,currentHole.fWayShrtLng,currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat,currentHole.fWayCenterLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat,currentHole.fWayCenterLng,currentPOS)));
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat,currentHole.fWayLongLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat,currentHole.fWayLongLng,currentPOS)));
+      }
     });
   }, function(error) {
     console.log("Could not get location");

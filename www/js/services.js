@@ -26,7 +26,13 @@ angular.module('starter.services', [])
     pinLat:'39.545541',
     pinLng:'-104.898266',
     centerLat:'39.544237',
-    centerLng:'-104.898351'
+    centerLng:'-104.898351',
+    fWayShrtLat:'39.543478',
+    fWayShrtLng:'-104.898523',
+    fWayCenterLat:'39.544251',
+    fWayCenterLng:'-104.898864',
+    fWAyEndLat:'39.545237',
+    fWayEndLng:'-104.898409'
   }, {
     id: 2,
     name: 'Hole 3',
@@ -35,7 +41,13 @@ angular.module('starter.services', [])
     pinLat:'39.546211',
     pinLng:'-104.897808',
     centerLat:'39.546030',
-    centerLng:'-104.898540'
+    centerLng:'-104.898540',
+    wHazardLat:'39.546182',
+    wHazardLng:'-104.898586',
+    fWayCenterLat:'39.546074',
+    fWayCenterLng:'-104.898145',
+    greenEndLat:'39.546277',
+    greenEndLng:'-104.897582'
   }, {
     id: 3,
     name: 'Hole 4',
@@ -44,7 +56,13 @@ angular.module('starter.services', [])
     pinLat:'39.542939',
     pinLng:'-104.897085',
     centerLat:'39.544383',
-    centerLng:'-104.897506'
+    centerLng:'-104.897506',
+    fWayShrtLat:'39.544495',
+    fWayShrtLng:'-104.897834',
+    fWayCenterLat:'39.543751',
+    fWayCenterLng:'-104.897663',
+    greenEndLat:'39.542764',
+    greenEndLng:'-104.896951'
   }, {
     id: 4,
     name: 'Hole 5',
@@ -53,7 +71,13 @@ angular.module('starter.services', [])
     pinLat:'39.545017',
     pinLng:'-104.891696',
     centerLat:'39.544353',
-    centerLng:'-104.893402'
+    centerLng:'-104.893402',
+    fWayShrtLat:'39.543187',
+    fWayShrtLng:'-104.894852',
+    fWayCenterLat:'39.543888',
+    fWayCenterLng:'-104.893305',
+    fWayLongLat:'39.544701',
+    fWayLongLng:'-104.892005',
   }, {
     id: 5,
     name: 'Hole 6',
