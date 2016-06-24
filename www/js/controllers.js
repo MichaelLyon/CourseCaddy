@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('ChatsCtrl', function($scope, Chats, Clubs) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -12,6 +12,7 @@ angular.module('starter.controllers', [])
   //
   //$scope.$on('$ionicView.enter', function(e) {
   //});
+  $scope.clubs = Clubs.all();
 
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
@@ -19,8 +20,10 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats, $cordovaGeolocation, $interval) {
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats, Clubs, $cordovaGeolocation, $interval) {
+  $scope.club = Clubs.get($stateParams.clubId);
   $scope.chat = Chats.get($stateParams.chatId);
+
   var options = {
     timeout: 10000,
     enableHighAccuracy: true

@@ -99,13 +99,13 @@ angular.module('starter.services', [])
       return clubs;
     },
     get: function(clubId) {
-      for (var i = 0; i < chats.length; i++) {
+      for (var i = 0; i < clubs.length; i++) {
         if (clubs[i].id === parseInt(clubId)) {
           return clubs[i];
         }
       }
       return null;
-    },
+    }
   }
 })
 
