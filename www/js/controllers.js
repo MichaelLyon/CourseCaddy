@@ -41,6 +41,12 @@ angular.module('starter.controllers', [])
 
 .controller('MapCtrl', function($scope, $state, $stateParams, Chats, $cordovaGeolocation) {
 
+  function localStorageSaver(data){
+    var localStorage1 = window.localStorage;
+    return localStorage1.setItem = data;
+  }
+  console.log(localStorageSaver({id:1,club:'9Iron',disStartCord:100,disEndCord:200,totalDis:100}));
+
   function datEventListener(marker,infoWindow1){
     google.maps.event.addListener(marker,'click',function(){
       infoWindow1.open($scope.map, marker);

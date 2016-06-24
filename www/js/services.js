@@ -1,5 +1,101 @@
 angular.module('starter.services', [])
 
+.factory('Clubs', function(){
+  var clubs =[{
+    id: 0,
+    name: 'Driver',
+    mDisLong: '260',
+    mDisShrt: '200',
+    fDisLong: '200',
+    fDisShrt: '150'
+  },{
+    id: 1,
+    name: '3Wood',
+    mDisLong: '235',
+    mDisShrt: '180',
+    fDisLong: '180',
+    fDisShrt: '125'
+  },{
+    id: 2,
+    name: '5Wood',
+    mDisLong: '210',
+    mDisShrt: '170',
+    fDisLong: '170',
+    fDisShrt: '105'
+  },{
+    id: 3,
+    name: '2Iron',
+    mDisLong: '210',
+    mDisShrt: '170',
+    fDisLong: '170',
+    fDisShrt: '105'
+  },{
+    id: 4,
+    name: '3Iron',
+    mDisLong: '200',
+    mDisShrt: '160',
+    fDisLong: '160',
+    fDisShrt: '100'
+  },{
+    id: 5,
+    name: '4Iron',
+    mDisLong: '185',
+    mDisShrt: '150',
+    fDisLong: '150',
+    fDisShrt: '90'
+  },{
+    id: 6,
+    name: '5Iron',
+    mDisLong: '170',
+    mDisShrt: '140',
+    fDisLong: '140',
+    fDisShrt: '80'
+  },{
+    id: 7,
+    name: '6Iron',
+    mDisLong: '160',
+    mDisShrt: '130',
+    fDisLong: '130',
+    fDisShrt: '70'
+  },{
+    id: 8,
+    name: '7Iron',
+    mDisLong: '150',
+    mDisShrt: '120',
+    fDisLong: '120',
+    fDisShrt: '65'
+  },{
+    id: 9,
+    name: '8Iron',
+    mDisLong: '140',
+    mDisShrt: '110',
+    fDisLong: '110',
+    fDisShrt: '60'
+  },{
+    id: 10,
+    name: '9Iron',
+    mDisLong: '130',
+    mDisShrt: '95',
+    fDisLong: '95',
+    fDisShrt: '55'
+  },{
+    id: 11,
+    name: 'PW',
+    mDisLong: '120',
+    mDisShrt: '80',
+    fDisLong: '80',
+    fDisShrt: '50'
+  },{
+    id: 12,
+    name: 'SW',
+    mDisLong: '100',
+    mDisShrt: '60',
+    fDisLong: '60',
+    fDisShrt: '40'
+  }
+]
+})
+
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
