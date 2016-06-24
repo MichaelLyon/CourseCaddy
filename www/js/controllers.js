@@ -46,6 +46,21 @@ angular.module('starter.controllers', [])
       infoWindow.open($scope.map, marker);
     })
   }
+  
+  function demMarkersDistanceBetween(obsticleLat,obsticleLng,currentPosition){
+    var newLatLng = new google.maps.LatLng(obsticleLat,obsticleLng);
+    var distanceBetween = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng) * 1.09361).toFixed(2);
+    console.log(distanceBetween);
+    return distanceBetween;
+  }
+  function disMarkerMaker(){{
+
+  }}
+
+  function tisButaPOS(lat,lng){
+    var returnedLatLng = new google.maps.LatLng(lat,lng);
+    return returnedLatLng;
+  }
   var options = {
     timeout: 10000,
     enableHighAccuracy: true
@@ -95,7 +110,10 @@ angular.module('starter.controllers', [])
 
       distanceLine.setMap($scope.map);
 
+
+
       if(currentHole.id ===0){
+        // demMarkersDistanceBetween(currentHole.sTrapShrtLat,currentHole.sTrapShrtLng,currentPOS);
         var sTrapShrtMarkPOS = new google.maps.LatLng(currentHole.sTrapShrtLat, currentHole.sTrapShrtLng);
         var sTrapShrt = new google.maps.Marker({
           map: $scope.map,
@@ -108,8 +126,8 @@ angular.module('starter.controllers', [])
         });
       }
 
-
       datEventListener(pinMarker,infoWindow);
+
     });
   }, function(error) {
     console.log("Could not get location");
