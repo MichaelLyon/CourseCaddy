@@ -49,23 +49,32 @@ angular.module('starter.controllers', [])
 
   function demMarkersDistanceBetween(obsticleLat,obsticleLng,currentPosition){
     var newLatLng = new google.maps.LatLng(obsticleLat,obsticleLng);
-    var distanceBetween = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng) * 1.09361).toFixed(2);
+    var distanceBetween = (google.maps.geometry.spherical.computeDistanceBetween(currentPosition, newLatLng) * 1.09361).toFixed(2);
     console.log(distanceBetween);
     return distanceBetween;
   }
 
+  function infoWindowCreator(yardsInBetween){
+    var returnedInfoWindow = new google.maps.InfoWindow({
+      content: yardsInBetween + ' yards',
+      enabled: true
+    });
+  }
+
   function disMarkerMaker(obsPOS){{
-    var sTrapShrt = new google.maps.Marker({
+    var newMarker = new google.maps.Marker({
       map: $scope.map,
       animation: google.maps.Animation.DROP,
       position: obsPOS,
     });
+    return newMarker
   }}
 
   function tisButaPOS(lat,lng){
     var returnedLatLng = new google.maps.LatLng(lat,lng);
     return returnedLatLng;
   }
+
 
   var options = {
     timeout: 10000,
@@ -116,11 +125,12 @@ angular.module('starter.controllers', [])
       })
 
       distanceLine.setMap($scope.map);
-
+      datEventListener(pinMarker,infoWindow);
 
 
       if(currentHole.id ===0){
-        
+
+        datEventListener(disMarkerMaker(tisButaPOS(currentHole.sTrapShrtLat,currentHole.sTrapShrtLng)),infoWindowCreator(demMarkersDistanceBetween(currentHole.sTrapShrtLat,currentHole.sTrapShrtLng,currentPOS)));
         // demMarkersDistanceBetween(currentHole.sTrapShrtLat,currentHole.sTrapShrtLng,currentPOS);
         // var sTrapShrtMarkPOS = new google.maps.LatLng(currentHole.sTrapShrtLat, currentHole.sTrapShrtLng);
         // var sTrapShrt = new google.maps.Marker({
@@ -134,7 +144,7 @@ angular.module('starter.controllers', [])
         // });
       }
 
-      datEventListener(pinMarker,infoWindow);
+
 
     });
   }, function(error) {
