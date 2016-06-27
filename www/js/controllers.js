@@ -30,6 +30,7 @@ angular.module('starter.controllers', [])
     timeout: 10000,
     enableHighAccuracy: true
   };
+
   var currentHole = Chats.get($stateParams.chatId);
   var weatherAPIKey = 'c98ec93f5a134adb4a37ca10c015d4e5';
 
@@ -142,6 +143,10 @@ angular.module('starter.controllers', [])
       $scope.recommendClub = clubSet;
     } else if ($scope.yrdToHole <= 100 && $scope.yrdToHole > 60) {
       var clubGet = Clubs.get('12');
+      var clubSet = clubGet.name;
+      $scope.recommendClub = clubSet;
+    }else if ($scope.yrdToHole <= 40 && $scope.yrdToHole >0) {
+      var clubGet = Clubs.get('13');
       var clubSet = clubGet.name;
       $scope.recommendClub = clubSet;
     }
