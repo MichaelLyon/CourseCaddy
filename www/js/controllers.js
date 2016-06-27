@@ -100,11 +100,34 @@ angular.module('starter.controllers', [])
   var savePOSBeforeShot = document.getElementById("savePOSBeforeShot");
   var savePOSAfterShot = document.getElementById("savePOSAfterShot");
   var selectBox = document.getElementsByClassName('clubSelectBox')[0];
+  var weatherAPIKey = 'c98ec93f5a134adb4a37ca10c015d4e5';
 
   var options = {
     timeout: 10000,
     enableHighAccuracy: true
   };
+  // var xhr = new XMLHttpRequest();
+
+  // var requestString = "api.openweathermap.org/data/2.5/weather?lat="
+  //                     + position.coords.latitude
+  //                     + "&lon="
+  //                     + position.coords.longitude
+  //                     + "&format=json"
+  //                     + "&APPID=" + weatherAPIKey;
+  // request = new XMLHttpRequest();
+  // request.onload = proccessResults;
+  // request.open("get", requestString, true);
+  // request.send();
+  // console.log(request.responseText);
+  // var getWeather = function() {
+  //
+  // };
+  //
+  // var proccessResults = function() {
+  //   console.log(this);
+  //   var results = JSON.parse(this.responseText);
+  //   console.log(results);
+  // };
 
   $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
     var beforeShotPosition = 0;
@@ -180,7 +203,7 @@ angular.module('starter.controllers', [])
     var latLng = new google.maps.LatLng(currentHole.centerLat, currentHole.centerLng);
     var pinLatLng = new google.maps.LatLng(currentHole.pinLat, currentHole.pinLng);
     var currentPOS = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    $scope.yrdToHoleMap = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng) * 1.09361).toFixed(2);
+    $scope.yrdToHoleMap = (google.maps.geometry.spherical.computeDistanceBetween(currentPOS, pinLatLng) * 1.09361).toFixed(1);
     var yrdToHoleVariable = $scope.yrdToHoleMap;
 
     var mapOptions = {
@@ -188,7 +211,7 @@ angular.module('starter.controllers', [])
       // disableDefaultUI:true, TODO: Unhighlight this
       zoom: 18,
       mapTypeId: google.maps.MapTypeId.SATELLITE
-    };
+    }
 
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
