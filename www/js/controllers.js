@@ -49,40 +49,40 @@ angular.module('starter.controllers', [])
 
   getWeather();
 
-  var calcWindDirection = function(degree){
-    if(degree < 11.25){
+  var calcWindDirection = function(degree) {
+    if (degree < 11.25) {
       return 'N';
-    }else if(degree < 33.75 && degree > 11.25){
+    } else if (degree < 33.75 && degree > 11.25) {
       return 'NNE';
-    }else if (degree <56.25 && degree >33.75){
+    } else if (degree < 56.25 && degree > 33.75) {
       return 'NE';
-    }else if(degree <78.75 && degree > 56.25){
+    } else if (degree < 78.75 && degree > 56.25) {
       return 'ENE';
-    }else if(degree < 101.25 && degree >78.75){
+    } else if (degree < 101.25 && degree > 78.75) {
       return 'E';
-    }else if(degree < 123.75 && degree >101.25){
+    } else if (degree < 123.75 && degree > 101.25) {
       return 'ESE';
-    }else if(degree < 146.25 && degree >123.75){
+    } else if (degree < 146.25 && degree > 123.75) {
       return 'SE';
-    }else if(degree < 168.75 && degree >146.25){
+    } else if (degree < 168.75 && degree > 146.25) {
       return 'SSE';
-    }else if(degree < 191.25 && degree >168.75){
+    } else if (degree < 191.25 && degree > 168.75) {
       return 'S';
-    }else if(degree < 213.75 && degree >191.25){
+    } else if (degree < 213.75 && degree > 191.25) {
       return 'SSW';
-    }else if(degree < 236.25 && degree >213.75){
+    } else if (degree < 236.25 && degree > 213.75) {
       return 'SW';
-    }else if(degree < 258.75 && degree >236.25){
+    } else if (degree < 258.75 && degree > 236.25) {
       return 'WSW';
-    }else if(degree < 281.25 && degree >258.75){
+    } else if (degree < 281.25 && degree > 258.75) {
       return 'W';
-    }else if(degree < 303.75 && degree >281.25){
+    } else if (degree < 303.75 && degree > 281.25) {
       return 'WNW';
-    }else if(degree < 326.25 && degree >303.75){
+    } else if (degree < 326.25 && degree > 303.75) {
       return 'NW';
-    }else if(degree < 348.75 && degree >326.25){
+    } else if (degree < 348.75 && degree > 326.25) {
       return 'NNW';
-    }else{
+    } else {
       return 'No Direction Available'
     }
   }
@@ -173,7 +173,7 @@ angular.module('starter.controllers', [])
 
     saveClubYardage.addEventListener('click', function() {
       localStorage1.club = selectBox.value;
-      localStorage1.distance = computeDistanceOfCurrentPOS(beforeShotPosition,afterShotPosition);
+      localStorage1.distance = computeDistanceOfCurrentPOS(beforeShotPosition, afterShotPosition);
       console.log(localStorage1);
     })
     savePOSBeforeShot.addEventListener('click', function() {
@@ -181,12 +181,13 @@ angular.module('starter.controllers', [])
       beforeShotPosition = currentPosition;
       console.log(beforeShotPosition);
     })
-    savePOSAfterShot.addEventListener('click',function(){
+    savePOSAfterShot.addEventListener('click', function() {
       var currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      afterShotPosition  = currentPosition;
+      afterShotPosition = currentPosition;
       console.log(afterShotPosition);
     })
-    function computeDistanceOfCurrentPOS(Position1, Position2){
+
+    function computeDistanceOfCurrentPOS(Position1, Position2) {
       var computeSaveYards = (google.maps.geometry.spherical.computeDistanceBetween(Position1, Position2) * 1.09361).toFixed(2);
       return computeSaveYards;
     }
@@ -309,58 +310,58 @@ angular.module('starter.controllers', [])
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayCenterLat, currentHole.fWayCenterLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayCenterLat, currentHole.fWayCenterLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat, currentHole.fWayLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat, currentHole.fWayLongLng, currentPOS)));
       }
-      if(currentHole.id === 5){
+      if (currentHole.id === 5) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayMidLat, currentHole.fWayMidLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayMidLat, currentHole.fWayMidLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.wHazardLat, currentHole.wHazardLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.wHazardLat, currentHole.wHazardLng, currentPOS)));
       }
-      if(currentHole.id === 6){
+      if (currentHole.id === 6) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.sTrapShrtLat, currentHole.sTrapShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.sTrapShrtLat, currentHole.sTrapShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.sTrapLongLat, currentHole.sTrapLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.sTrapLongLat, currentHole.sTrapLongLng, currentPOS)));
       }
-      if(currentHole.id === 7){
+      if (currentHole.id === 7) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat, currentHole.fWayLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat, currentHole.fWayLongLng, currentPOS)));
       }
-      if(currentHole.id === 8){
+      if (currentHole.id === 8) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat, currentHole.fWayLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat, currentHole.fWayLongLng, currentPOS)));
       }
-      if(currentHole.id === 9){
+      if (currentHole.id === 9) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat, currentHole.fWayLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat, currentHole.fWayLongLng, currentPOS)));
       }
-      if(currentHole.id === 10){
+      if (currentHole.id === 10) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat, currentHole.fWayLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat, currentHole.fWayLongLng, currentPOS)));
       }
-      if(currentHole.id === 11){
+      if (currentHole.id === 11) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat, currentHole.fWayLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat, currentHole.fWayLongLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.wHazardLat, currentHole.wHazardLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.wHazardLat, currentHole.wHazardLng, currentPOS)));
       }
-      if(currentHole.id === 12){
+      if (currentHole.id === 12) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.sTrapShrtLat, currentHole.sTrapShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.sTrapShrtLat, currentHole.sTrapShrtLng, currentPOS)));
       }
-      if(currentHole.id === 13){
+      if (currentHole.id === 13) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat, currentHole.fWayLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat, currentHole.fWayLongLng, currentPOS)));
       }
-      if(currentHole.id === 14){
+      if (currentHole.id === 14) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat, currentHole.fWayLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat, currentHole.fWayLongLng, currentPOS)));
       }
-      if(currentHole.id === 15){
+      if (currentHole.id === 15) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayMidLat, currentHole.fWayMidLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayMidLat, currentHole.fWayMidLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat, currentHole.fWayLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat, currentHole.fWayLongLng, currentPOS)));
       }
-      if(currentHole.id === 16){
+      if (currentHole.id === 16) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat, currentHole.fWayLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat, currentHole.fWayLongLng, currentPOS)));
       }
-      if(currentHole.id === 17){
+      if (currentHole.id === 17) {
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayShrtLat, currentHole.fWayShrtLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayShrtLat, currentHole.fWayShrtLng, currentPOS)));
         datEventListener(disMarkerMaker(tisButaPOS(currentHole.fWayLongLat, currentHole.fWayLongLng)), infoWindowCreator(demMarkersDistanceBetween(currentHole.fWayLongLat, currentHole.fWayLongLng, currentPOS)));
       }
